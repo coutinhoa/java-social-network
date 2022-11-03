@@ -53,25 +53,34 @@ public class Main {
                     System.out.print("Status Updated.");}
                 catch (Exception e) {
                     System.out.println(e.getMessage());}
-            }/*else if(command.equals("Check friendship")){
-                String nameRemoved = scanner.nextLine();
+            }else if(command.equals("Make friends")){
+                String nameOne = scanner.nextLine();
+                String nameTwo = scanner.nextLine();
                 try {
-                    network.removeContact(nameRemoved);}
+                    if(network.makeFriendship(nameOne, nameTwo)==true){
+                    System.out.println("Friendship established.");}}
                 catch (Exception e) {
                     System.out.println(e.getMessage());}
-            }else if(command.equals("Friends")){
+            } else if(command.equals("User friends")){
                 String name = scanner.nextLine();
                 try {
-                    System.out.print(network.getPhone((name)));}
+                    Iterator<Person> iterator = network.getUserFriends(name);
+                    System.out.println("List of friends: ");
+                    while (iterator.hasNext()) {
+                        Person current = iterator.next();
+                        System.out.println( current.getName());
+                    };
+                }
                 catch (Exception e) {
                     System.out.println(e.getMessage());}
-            }else if(command.equals("Check friends")){
-                String name = scanner.nextLine();
+            }else if(command.equals("Check friendship")){
+                String nameOne = scanner.nextLine();
+                String nameTwo = scanner.nextLine();
                 try {
-                    System.out.print(network.getMail((name)));}
+                    network.doesFriendshipExist(nameOne, nameTwo);}
                 catch (Exception e) {
                     System.out.println(e.getMessage());}
-            }*/
+            }
         }
     }
 }

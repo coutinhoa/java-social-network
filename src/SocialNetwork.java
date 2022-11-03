@@ -3,7 +3,6 @@ import java.util.Iterator;
 
 public class SocialNetwork {
     private ArrayList<Person> people;
-
     public SocialNetwork() {
         people=new ArrayList<Person>();
     }
@@ -29,8 +28,8 @@ public class SocialNetwork {
     }
 
     public void isPersonRegistered(String name) throws Exception{
-        Person Person = getPersonByName(name);
-        if (Person == null) {
+        Person person = getPersonByName(name);
+        if (person == null) {
             throw new Exception("Person doesn't exist.");
         } else {
             throw new Exception("Person is already registered.");
@@ -45,78 +44,57 @@ public class SocialNetwork {
     }
 
     public String checkStatus(String name) throws Exception{
-        Person Person = getPersonByName(name);
-        if (Person == null) {
+        Person person = getPersonByName(name);
+        if (person == null) {
             throw new Exception("Person doesn't exist.");
         } else {
-            return Person.getStatus();
+            return person.getStatus();
         }
     }
 
     public void updateStatus(String name, String newStatus) throws Exception {
-        Person Person = getPersonByName(name);
-        if (Person == null) {
+        Person person = getPersonByName(name);
+        if (person == null) {
             throw new Exception("Person doesn't exist.");
         } else {
-            Person.setStatus(newStatus);
+            person.setStatus(newStatus);
         }
     }
 
-    /*public Iterator<Person> getpeople() throws Exception{
-        if(people.size()==0){
-            throw new Exception ("Person book empty.");
-        }
-        return people.iterator();
-    }
 
-    public void removePerson(String name) throws Exception{
-        Person Person = getPersonByName(name);
-        if (Person == null) {
+    public boolean makeFriendship(String nameOne, String nameTwo) throws Exception {
+        Person personOne = getPersonByName(nameOne);
+        Person personTwo = getPersonByName(nameTwo);
+        if(nameOne==null || nameTwo==null){
             throw new Exception("Person doesn't exist.");
-        } else {
-            people.remove(Person);
-            throw new Exception("Person removed.");
-        }
+        } else if(nameOne==nameTwo){
+            throw new Exception("Invalid Friendship.");
+        } else if(personOne.isFriendsWith(personTwo) || personTwo.isFriendsWith(personOne)){
+            throw new Exception("Friendship already exists.");
+        }else {
+            personOne.addFriend(personTwo);
+            personTwo.addFriend(personOne);
+            return true;}
     }
 
-    public int getPhone(String name) throws Exception{
-        Person Person = getPersonByName(name);
-        if (Person == null) {
+    public Iterator<Person> getUserFriends(String name) throws Exception {
+        Person person = getPersonByName(name);
+        if (person == null) {
             throw new Exception("Person doesn't exist.");
+        } else if (!person.getFriends().hasNext()){
+            throw new Exception("Person doesn't have friends yet.");
+        }
+        return person.getFriends();
+    }
+
+
+    public void doesFriendshipExist(String nameOne, String nameTwo) throws Exception {
+        Person personOne = getPersonByName(nameOne);
+        Person personTwo = getPersonByName(nameTwo);
+        if (personOne.isFriendsWith(personTwo) || personTwo.isFriendsWith(personOne)) {
+            throw new Exception("Users are friends.");
         } else {
-            return Person.getPhoneNumber();
+            throw new Exception("Friendship doesn't exist.");
         }
     }
-
-
-    public String lookNameByPhone(int phoneNumber) throws Exception{
-        for(Person element : people) {
-            if (element.getPhoneNumber()==phoneNumber) {
-                return element.getName();
-            }
-        }
-        throw new Exception("Phone number does not exist.");
-    }
-
-
-    public void updateEmail(String name, String newEmail) throws Exception{
-        Person Person = getPersonByName(name);
-        if (Person == null) {
-            throw new Exception("Person doesn't exist.");
-        } else {
-            Person.updateEmail(newEmail);
-        }
-    }
-
-    public boolean equalPhoneNumbers() throws Exception{
-        for (int i = 0; i < people.size(); i++) {
-            for (int j = i + 1 ; j < people.size(); j++) {
-                if (people.get(i).getPhoneNumber() == people.get(j).getPhoneNumber()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }*/
-    
 }
