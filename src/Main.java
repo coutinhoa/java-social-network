@@ -69,7 +69,7 @@ public class Main {
                     while (iterator.hasNext()) {
                         Person current = iterator.next();
                         System.out.println( current.getName());
-                    };
+                    }
                 }
                 catch (Exception e) {
                     System.out.println(e.getMessage());}
@@ -78,6 +78,34 @@ public class Main {
                 String nameTwo = scanner.nextLine();
                 try {
                     network.doesFriendshipExist(nameOne, nameTwo);}
+                catch (Exception e) {
+                    System.out.println(e.getMessage());}
+            } else if(command.equals("Add post")){
+                String nameOne = scanner.nextLine();
+                String post = scanner.nextLine();
+                try {
+                    network.addPostToTheWall(nameOne, post);}
+                catch (Exception e) {
+                    System.out.println(e.getMessage());}
+            }  else if(command.equals("Post friends")){
+                String nameOne = scanner.nextLine();
+                String post = scanner.nextLine();
+                String friendName = scanner.nextLine();
+                try {
+                    network.addPostToFriendsWall(nameOne, post, friendName);}
+                catch (Exception e) {
+                    System.out.println(e.getMessage());}
+            }   else if(command.equals("Friends wall")){
+                String nameOne = scanner.nextLine();
+                String friendName = scanner.nextLine();
+                try {
+                    Iterator<Post> iterator = network.getFriendsPosts(nameOne, friendName);
+                    System.out.println(friendName + "'s wall:");
+                    while (iterator.hasNext()) {
+                        Post current = iterator.next();
+                        System.out.println(current.getAuthor() + ": " +current.getText());
+                    }
+                }
                 catch (Exception e) {
                     System.out.println(e.getMessage());}
             }

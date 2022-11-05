@@ -97,4 +97,43 @@ public class SocialNetwork {
             throw new Exception("Friendship doesn't exist.");
         }
     }
+
+    public void addPostToTheWall(String name, String text) throws Exception{
+        Person person = getPersonByName(name);
+        Post post = new Post(text, name);
+
+        if (person == null) {
+            throw new Exception("Person doesn't exist.");
+        } else {
+            person.addPost(post);
+            throw new Exception("Post added.");
+        }
+    }
+
+
+    public void addPostToFriendsWall(String nameOne, String text , String friendsName) throws Exception{
+        Person personOne = getPersonByName(nameOne);
+        Person personTwo = getPersonByName(friendsName);
+        Post post = new Post(text,nameOne);
+        if (personOne == null || personTwo ==null) {
+            throw new Exception("Person doesn't exist.");
+        } else if (!personOne.isFriendsWith(personTwo) || !personTwo.isFriendsWith(personOne)) {
+            throw new Exception("No friendship.");
+        } else {
+            personTwo.addPost(post);
+            throw new Exception("Post added.");
+        }
+    }
+
+    public Iterator<Post> getFriendsPosts(String nameOne, String friendsName) throws Exception{
+        Person personOne = getPersonByName(nameOne);
+        Person personTwo = getPersonByName(friendsName);
+        if (personOne == null || personTwo ==null) {
+            throw new Exception("Person doesn't exist.");
+        } else if (!personOne.isFriendsWith(personTwo) || !personTwo.isFriendsWith(personOne)) {
+            throw new Exception("No friendship.");
+        } else {
+            return personTwo.getPosts();
+        }
+    }
 }

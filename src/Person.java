@@ -13,6 +13,7 @@ public class Person {
         this.email= email;
         this.status = status;
         this.friends = new ArrayList<>();
+        this.posts = new ArrayList<>();
     }
     public String getName() {return name;}
     public String getEmail() {
@@ -35,8 +36,8 @@ public class Person {
         return friends.contains(person);
     }
 
-    public void addPost(Post text) {
-        posts.add(text);
+    public void addPost(Post post) {
+        posts.add(post);
     }
 
     public Iterator<Post> getPosts() {
